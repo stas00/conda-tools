@@ -45,7 +45,7 @@ sub vers {
         else {
             $chan ||= "anaconda";
             my $len = length $chan;
-                # truncate long channels
+            # truncate long channels
             $chan = substr($chan, 0, $max_chan_len) . ($len >  $max_chan_len && '...' || '');
             $source .= "/$chan";
         }
@@ -58,6 +58,7 @@ sub vers {
         #print "$name, $ver, $source";
         $vers{$name} = [$ver, $source];
     }
+    die "Error: Non-existing or empty environment: $env\n" if keys %vers == 0;
     return \%vers;
 }
 
