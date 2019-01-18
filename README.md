@@ -7,7 +7,7 @@ helper tools for conda environment
 If you have something working in one conda environment, but not another, it helps to be able to compare the differences between installed packages in each of them. This script does the job.
 
 This program compares 2 given conda environments (by name) and prints out 3 tables:
-1. Different version numbers
+1. Packages with different version numbers
 2. Packages in one env but not the other
 3. Packages with the same versions
 
