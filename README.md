@@ -24,5 +24,5 @@ conda-env-compare.pl good-env bad-env
 Tested to work with conda 4.5.12
 
 Troubleshooting: make sure:
-1. you have 'conda activate YOURENVNAME' setup working
-2. you can run: conda list -n YOURENVNAME
+1. you have `conda activate YOURENVNAME` setup working
+2. you can run: `conda list -n YOURENVNAME`
