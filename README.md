@@ -2,6 +2,8 @@
 
 helper tools for conda environment
 
+See also [other tools in my toolbox](https://github.com/stas00/toolbox).
+
 ## conda-env-compare.pl
 
 If you have something working in one conda environment, but not another, it helps to be able to compare the differences between installed packages in each of them. This script does the job.
