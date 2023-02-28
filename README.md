@@ -20,7 +20,7 @@ It tries hard to normalize package names and version numbers, as they can vary b
 Example:
 
 ```
-conda-env-compare.pl work25 work36
+./conda-env-compare.pl work25 work36
 ```
 Output, truncated for brevity:
 ```
