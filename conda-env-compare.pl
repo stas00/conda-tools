@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
 # usage:
-# conda-env-compare.pl env-name-1 env-name2
+# ./conda-env-compare.pl env-name-1 env-name2
 #
 # This program compares 2 given conda environments (by name) and prints out 3 tables:
 # 1. Different version numbers
