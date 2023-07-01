@@ -1,6 +1,6 @@
-# conda-tools
+# conda Tools
 
-helper tools for conda environment
+Helper tools and how-tos for conda environment:
 
 - [conda cheat-sheet](./conda.txt) - various solutions to conda usage
 
