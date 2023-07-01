@@ -1,0 +1,194 @@
+# -*- mode: sh;-*-
+################
+### anaconda ###
+################
+
+# Install
+https://docs.anaconda.com/anaconda/install/linux/
+
+# conda
+https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/20/conda/
+
+# update conda itself
+conda update conda
+
+
+
+### working with environments ###
+
+# create minimal environment
+conda create -n pytorch-dev python=3.8
+# create full environment (lots of useless packages)
+#### don't do it: conda create -n pytorch-dev python=3.8 anaconda
+
+# install/update important packages after creating a new env
+conda install conda conda-build conda-verify
+
+# activate environment or switch to another environment
+conda activate env-name
+
+# deactivate:
+conda deactivate
+
+# delete a no longer needed virtual environment
+conda remove -n yourenvname --all
+
+# list out the available environments
+conda env list
+
+# get a detailed list of information about the environment
+conda info
+
+# verify
+conda info --envs
+
+# clone an existing environment (rename is not possible)
+conda create --name new_env_clone_name --clone current_env_name
+--copy: Install all packages using copies instead of hard- or soft-linking.
+
+# clone an existing environment into a new python version
+conda create --name new_env_clone_name --clone current_env_name
+conda install -n new_env_clone_name python=3.8
+conda update -n new_env_clone_name --all
+
+# revisions (should be able to roll-back to a given revision):
+conda list --revisions
+conda install --revision 58
+
+
+
+### channels ###
+
+# To add a channel (named for instance newchannel) with the lowest priority
+conda config --append channels newchannel
+
+# To add a channel (named newchannel) with the highest priority
+conda config --prepend channels newchannel
+
+# To remove a channel (named newchannel)
+conda config --remove channels newchannel
+
+# list out the active channels and their priorities
+conda config --get channels
+
+
+
+### installation ###
+
+conda install seaborn
+conda install seaborn=0.7.0
+
+# if there are several sub-versions of a specific version available,
+# you can specify which subversion to install with:
+conda install albaster=0.7.7=py34_0
+
+# install editable package as a dir (like `pip install -e .`)
+# adds the location of the project to lib/python3.6/site-packages/conda.pth
+conda develop .
+# uninstall editable package as a dir
+conda develop -u .
+
+# install a package from a channel
+conda install -c conda-forge yaml
+
+# show all available to install packages for package_name
+conda info package_name
+
+# can still install pip packages into the environment
+#
+# but if that same package is available on conda too, conda will
+# overwrite the pip package installation later via some package
+# dependency or through direct install
+#
+pip install lightgbm
+
+
+
+### updating ###
+
+conda install <package> is the same as conda update <package>
+
+conda update seaborn
+conda update --all
+
+
+
+### removing ###
+
+# `uninstall` is an alias for `remove`
+conda remove seaborn
+conda uninstall seaborn
+
+
+
+### dependencies and package contents ###
+
+# new tool - try it out
+conda-tree
+
+# find out dependencies of a specific package:
+conda search --info <package>=<version>=<build_str>
+# less specific (will show all builds)
+conda search --info <package>=<version>
+# same plus search a specific channel:
+conda search --info <package>=<version>=<build_str> -c channel
+
+# find which packages depend on a given package
+conda remove --dry-run <package>
+# to get a list of packages that would be uninstalled along with the given one.
+
+# XXX: try https://github.com/omegacen/conda-depgraph
+# which draws conda dependency graphs
+
+# list out all the installed packages in the currently active environment
+conda list
+# for a specific pattern/name:
+conda list pandas
+
+# search for all the available versions of a certain package
+conda search -f seaborn
+# same w/ extra channels to search in
+conda search -c pytorch torchvision
+
+# list package contents
+# either:
+cd ~/anaconda3/envs/pytorch-dev/conda-meta
+less <package-ver.json>
+# quick version
+l $CONDA_PREFIX/conda-meta/ncurses-6.4-h6a678d5_0.json
+
+# or to find which file belongs to which package (only installed via conda)
+grep filename_to_find  ~/anaconda3/envs/ENVNAME/conda-meta/*
+# some can be installed via pip
+pip list | tail -n +3 | cut -d" " -f1 | xargs pip show -f | grep filename_to_find
+
+# this is outdated
+# or for some packages to be found under:
+~/anaconda3/envs/pytorch-dev/pkgs/<package-ver>
+
+
+
+
+### conda package building ###
+
+# cookie-cutter for making conda packages
+https://github.com/conda/cookiecutter-conda-python
+
+# install from a local build
+conda-build recipe/meta.yaml
+conda install -c ${CONDA_PREFIX}/conda-bld/ my_package
+
+
+# environment variables passed to the build process
+#
+# doc: https://github.com/conda/conda-docs/blob/master/docs/source/user-guide/tasks/build-packages/environment-variables.rst
+#
+# a few are inherited, like MAKEFLAGS
+MAKEFLAGS="-j" conda-build ...
+#
+# meta.yaml can define which get inherited:
+build:
+  script_env:
+   - TMPDIR
+   - LD_LIBRARY_PATH # [linux]
+   - DYLD_LIBRARY_PATH # [osx]

@@ -2,7 +2,7 @@
 
 helper tools for conda environment
 
-See also [other tools in my toolbox](https://github.com/stas00/toolbox).
+- [conda cheat-sheet](./conda.txt) - various solutions to conda usage
 
 ## conda-env-compare.pl
 
