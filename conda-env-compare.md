@@ -1,6 +1,6 @@
 ## conda-env-compare.pl
 
-If you have something working in one conda environment, but not the other, it helps to be able to compare the differences between installed packages in each of them. This script does the job.
+If you have something working in one conda environment, but not the other, it helps to be able to compare the differences between installed packages in each of them. [conda-env-compare.pl](conda-env-compare.pl) does the job.
 
 This program compares 2 given conda environments (by name) and prints out 3 tables:
 1. Packages with different version numbers
